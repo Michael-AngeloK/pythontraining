@@ -6,7 +6,7 @@ def calculate_area(length, width=0, shape="square"):
   elif (shape == "rectangle"):
     return length * width
   elif (shape == "circle"):
-    return 2 * 3.14 * length
+    return math.pi * (length ** 2)
   else:
     return "invalid shape"
 
