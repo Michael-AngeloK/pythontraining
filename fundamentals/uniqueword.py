@@ -1,3 +1,5 @@
+# Count unique words
+
 sentence = "hello world hello python world administer"
 
 words = sentence.split()
