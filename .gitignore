@@ -1,5 +1,1 @@
-# Virtual Environment
-venv/
-.venv/
-env/
-.env/
+config.py
