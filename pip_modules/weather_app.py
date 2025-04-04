@@ -1,7 +1,6 @@
 # Goal: Display temperature, humidity, and weather conditions for a user-input city
 from config import API_KEY
 from requests import get
-import json
 
 def displayWeather(jsondata):
     print(f"Weather data in {city.title()}")
