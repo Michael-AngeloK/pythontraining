@@ -4,7 +4,7 @@
 # [x] Add timestamps to each entry
 
 import os
-from config import API_KEY
+from dotenv import load_dotenv
 from requests import get
 from datetime import datetime
 
@@ -13,6 +13,9 @@ def displayWeather(jsondata):
     print(f"Temperature is: {jsondata['main']['temp'] - 272.15:.1f}°C")
     print(f"Humidity is: {jsondata['main']['humidity']}")
     print(f"Weather condition is:")
+
+load_dotenv()  # Loads variables from .env
+API_KEY = os.getenv("OPENWEATHER_API_KEY")
 
 # Get the script's directory and set history file path
 script_dir = os.path.dirname(os.path.abspath(__file__))

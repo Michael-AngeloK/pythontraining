@@ -1,0 +1,2 @@
+
+date: 05.04.2025 23-19 city: Oslo, temperature: 4.1°C
