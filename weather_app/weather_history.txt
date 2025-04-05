@@ -1,3 +1,0 @@
-city: Oslo, temperature: 4.6°C
-city: Paris, temperature: 20.2°C
-city: Berlin, temperature: 4.3°C
