@@ -1,4 +1,8 @@
-# Goal: Display temperature, humidity, and weather conditions for a user-input city
+# [x] Display temperature, humidity, and weather conditions for a user-input city
+# [ ] Save each successful weather query to a file
+# [ ] Display search history when the user types "history"
+# [ ] Bonus: Add timestamps to each entry
+
 from config import API_KEY
 from requests import get
 
@@ -12,9 +16,18 @@ def displayWeather(jsondata):
 while True:
     # Get user input for city
     try:
+        print("=== Weather app ===")
         city = input("What city would you like to know it's weather conditions of? ").strip().lower()
         if not city:
             print("Format does not allow empty input")
+            continue
+        elif city == "history":
+            try:
+                with open("weather_history.txt", "r") as file:
+                    print("Search history:")
+                    print(file.read())
+            except FileNotFoundError:
+                print("File not found")
             continue
         elif city == "exit":
             print("Exiting... Goodbye!")
@@ -30,6 +43,11 @@ while True:
             if response.status_code == 200:
                 print("Request succesful")
                 jsonResponse = response.json()
+                
+                # Save succesfull query in a file
+                with open("weather_history.txt", "a") as file:
+                    file.write(f"city: {city.title()}, temperature: {jsonResponse['main']['temp'] - 272.15:.1f}°C\n")
+                
                 # print(json.dumps(jsonResponse, indent=4))
                 
                 # Display results
