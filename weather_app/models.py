@@ -1,4 +1,5 @@
 from datetime import datetime
+from requests import get
 
 class WeatherData:
     CELSIUS = "°C"
@@ -24,3 +25,18 @@ class WeatherData:
         print(f"Temperature is: {self.temperature_formatted}")
         print(f"Humidity is: {self.humidity}")
         print(f"Weather condition is: {self.description.capitalize()}") 
+
+class WeatherFetcher:
+    BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
+    
+    def __init__(self, api_key):
+        self.api_key = api_key
+    
+    def fetch_weather(self, api_key, city):
+        params = {
+            'q': city,
+            'appid': api_key
+        }
+        response = get(self.BASE_URL, params=params)
+        response.raise_for_status()
+        return WeatherData(city, response.json()), response.status_code

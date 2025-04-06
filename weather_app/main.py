@@ -5,9 +5,9 @@
 
 import os
 from dotenv import load_dotenv
-from requests import HTTPError, get
+from requests import HTTPError
 from datetime import datetime
-from weather_app.models import WeatherData
+from weather_app.models import WeatherData, WeatherFetcher
 # import json
 
 class WeatherAPIError(Exception):
@@ -42,7 +42,7 @@ try:
     while True:
         # Get user input for city
         try:
-            city = input("\nEnter a city name (or 'history'/'exit): ").strip().lower()
+            city = input("\nEnter a city name (or 'history'/'exit'): ").strip().lower()
             
             if not city:
                 print("Format does not allow empty input")
@@ -72,17 +72,13 @@ try:
                 break
             
             try:
-                params = {
-                    'q': city,
-                    'appid': API_KEY
-                }
                 # Fetch data from the OpenWeatherMap api of the decided city
-                response = get("https://api.openweathermap.org/data/2.5/weather", params=params)
-
+                fetcher = WeatherFetcher(API_KEY)
+                data, status_code = fetcher.fetch_weather(API_KEY, city)
+                
                 # If successful: parse the data
-                if response.status_code == 200:
+                if status_code == 200:
                     print("Request succesful")
-                    data = WeatherData(city, response.json())
                     
                     # Save succesfull query in a file
                     with open(history_file, "a") as file:
@@ -94,10 +90,8 @@ try:
                     # Display results
                     data.displayWeather()
                 
-                elif response.status_code == 404:
+                elif status_code == 404:
                     raise InvalidCityError(f"City '{city}' doesn't exist")
-                
-                response.raise_for_status()
             
             except HTTPError as e:
                 raise APIRequestError(f"API failed: {e}") 
