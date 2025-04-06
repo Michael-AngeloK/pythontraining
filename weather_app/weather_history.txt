@@ -3,4 +3,10 @@ date: 05.04.2025 23-19 city: Oslo, temperature: 4.1°C
 date: 06.04.2025 13-06 city: Oslo, temperature: 14.3°C
 date: 06.04.2025 13-07 city: Oslo, temperature: 14.3°C
 date: 06.04.2025 13-08 city: Oslo, temperature: 14.3°C
-date: 06.04.2025 13-09 city: Oslo, temperature: 14.3°C
+date: 06.04.2025 13-09 city: Oslo, temperature: 14.3°C06.04.2025 13-49, Oslo, 14.3°C
+06.04.2025 13-50, Bern, 13.5°C
+06.04.2025 13-51, Ben, 18.0°C
+06.04.2025 13-51, Bern, 13.5°C
+06.04.2025 13:52, Kobenhavn, 9.5°C
+06.04.2025 13:54, Oslo, 14.3°C
+06.04.2025 13:54|Oslo|14.3°C
