@@ -7,24 +7,9 @@ import os
 from dotenv import load_dotenv
 from requests import HTTPError, get
 from datetime import datetime
+from weather_app.models import WeatherData
 # import json
 
-class WeatherData:
-    def __init__(self, name, jsondata):
-        self.cityName = name
-        self.temperature = jsondata['main']['temp']
-        self.humidity = jsondata['main']['humidity']
-        self.description = jsondata['weather'][0]['description']
-        
-    def __str__(self):
-        return f"{self.cityName}: {self.temperature}°C, {self.description}"
-        
-    def displayWeather(self):
-        print(f"Weather data in {self.cityName.title()}")
-        print(f"Temperature is: {self.temperature - 272.15:.1f}°C")
-        print(f"Humidity is: {self.humidity}")
-        print(f"Weather condition is: {self.description.capitalize()}")
-    
 class WeatherAPIError(Exception):
     """Base class for all weather-related errors"""
     pass
@@ -57,7 +42,7 @@ try:
     while True:
         # Get user input for city
         try:
-            city = input("\nWhat city would you like to know it's weather conditions of? ").strip().lower()
+            city = input("\nEnter a city name (or 'history'/'exit): ").strip().lower()
             
             if not city:
                 print("Format does not allow empty input")
@@ -87,11 +72,12 @@ try:
                 break
             
             try:
-                # Build API request
-                request = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + API_KEY
-
+                params = {
+                    'q': city,
+                    'appid': API_KEY
+                }
                 # Fetch data from the OpenWeatherMap api of the decided city
-                response = get(request)
+                response = get("https://api.openweathermap.org/data/2.5/weather", params=params)
 
                 # If successful: parse the data
                 if response.status_code == 200:
@@ -101,7 +87,7 @@ try:
                     # Save succesfull query in a file
                     with open(history_file, "a") as file:
                         now = datetime.now().strftime("%d.%m.%Y %H:%M")
-                        file.write(f"{now} | {city.title()} | {response.json()['main']['temp'] - 272.15:.1f}°C\n")
+                        file.write(f"{now} | {city.title()} | {data.temperature_formatted}\n")
                     
                     # print(json.dumps(jsonResponse, indent=4))
                     
