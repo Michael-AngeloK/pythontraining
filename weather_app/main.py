@@ -7,7 +7,7 @@ import os
 from dotenv import load_dotenv
 from requests import HTTPError
 from datetime import datetime
-from weather_app.models import WeatherData, WeatherFetcher
+from weather_app.models import WeatherFetcher
 # import json
 
 class WeatherAPIError(Exception):
