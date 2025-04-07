@@ -1,4 +1,4 @@
-
+from decorators import *
 
 class Task:
     def __init__(self, title, priority):
@@ -8,11 +8,12 @@ class Task:
     
     def __str__(self):
         return f"{'[X]' if self.completed else '[ ]'} {self.title} {self.priority}"
-        
+    
+    # @log_action
     def complete_task(self):
         self.completed = True
     
-class TimeTask(Task):
+class TimedTask(Task):
     def __init__(self, title, priority, deadline):
         super().__init__(title, priority)
         self.deadline = deadline
@@ -21,6 +22,8 @@ class TimeTask(Task):
         base_str = super().__str__()
         return f"{base_str} (Due: {self.deadline})"
     
-timed_task = TimeTask("Do homework", "middle", "07.04.25")
-timed_task.complete_task()
+timed_task = TimedTask("Do homework", "middle", "07.04.25")
 print(timed_task)
+timed_task.complete_task()
+
+print(dir())
