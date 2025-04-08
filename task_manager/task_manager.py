@@ -6,7 +6,7 @@ class Task_Manager:
         self.next_id = 1
     
     def __str__(self):
-        return f"{self.tasks if self.tasks else 'Empty'}"
+        return "\n".join(str(task) for task in self.tasks) if self.tasks else 'No Tasks'
     
     def __iter__(self):
         return iter(self.tasks)

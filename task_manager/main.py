@@ -14,9 +14,9 @@ parser.add_argument("--complete", type=int, help="Mark task complete by ID")
 args = parser.parse_args()
 
 manager = Task_Manager()
-# manager.add_task(Task("Do homework", "medium"))
-# manager.add_task(TimedTask("Dentist appointment", "high", "08.04.25"))
-# manager.add_task(Task("Call friend", "low"))
+manager.add_task(Task("Do homework", "medium"))
+manager.add_task(TimedTask("Dentist appointment", "high", "08.04.25"))
+manager.add_task(Task("Call friend", "low"))
 
 if args.add:
     if args.priority:
@@ -31,17 +31,17 @@ if args.add:
         task = TimedTask(args.add, args.priority, args.deadline)
     else:
         task = Task(args.add, args.priority)
-        
+    
     manager.add_task(task)
     print(f"Added task: {task}")
-
-print("All tasks:")
-for task in manager:
-    print(task)
+    
+if args.list:
+    print("Displaying all tasks:")
+    print(manager)
     
 task = manager.get_task(1)
 task.complete_task()
 
-print("Complete tasks:")
-for task in manager.filter_tasks(status=True):
-    print(task)
+# print("Complete tasks:")
+# for task in manager.filter_tasks(status=True):
+#     print(task)
