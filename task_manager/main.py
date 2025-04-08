@@ -42,6 +42,6 @@ if args.list:
 task = manager.get_task(1)
 task.complete_task()
 
-# print("Complete tasks:")
-# for task in manager.filter_tasks(status=True):
-#     print(task)
+print("Complete tasks:")
+for task in manager.filter_tasks(status=True):
+    print(task)
