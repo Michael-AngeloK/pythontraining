@@ -35,13 +35,23 @@ if args.add:
     manager.add_task(task)
     print(f"Added task: {task}")
     
-if args.list:
+elif args.list:
     print("Displaying all tasks:")
     print(manager)
     
-task = manager.get_task(1)
-task.complete_task()
-
+elif args.complete:
+    try:
+        task = manager.get_task(args.complete)
+        task.complete_task()
+        print(f"Task {task.id} marked as complete: {task.title}")
+    except ValueError as e:
+        print(f"Invalid Id: {e}")
+    
+print("Tasks:")
+for task in manager:
+    print(task)
+    
 print("Complete tasks:")
 for task in manager.filter_tasks(status=True):
     print(task)
+    
